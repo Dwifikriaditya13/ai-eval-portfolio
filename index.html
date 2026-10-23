@@ -1,434 +1,659 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dwi Fikri Aditya — AI Evaluation & Annotation Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0F2027;
-    --bg-raised: #16303A;
-    --bg-raised-2: #1C3A44;
-    --accent: #2EC4B6;
-    --accent-bright: #5DE3D5;
-    --text: #F4FAFA;
-    --text-dim: #8FB0AE;
-    --border: #24454E;
-    --score-0: #4A3030;
-    --score-1: #5A4A2A;
-    --score-2: #2A4A3A;
-    --score-3: #1F5A48;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dwi Fikri Aditya — AI Trainer, LLM Evaluation, Data Annotation</title>
+  <meta name="description" content="Dwi Fikri Aditya — AI trainer in Lumajang, Indonesia. LLM evaluation, rubric scoring, data annotation, and benchmark-task data engineering.">
+  <meta name="author" content="Dwi Fikri Aditya">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f3f0e8">
+  <link rel="canonical" href="https://dwifikriaditya13.github.io/ai-eval-portfolio/">
+  <meta property="og:title" content="Dwi Fikri Aditya — AI Trainer">
+  <meta property="og:description" content="LLM evaluation, rubric scoring, data annotation, and data engineering. Based in Lumajang, Indonesia.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dwifikriaditya13.github.io/ai-eval-portfolio/">
+  <meta property="og:image" content="https://dwifikriaditya13.github.io/ai-eval-portfolio/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Dwi Fikri Aditya">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dwi Fikri Aditya — AI Trainer">
+  <meta name="twitter:description" content="LLM evaluation, rubric scoring, data annotation, and data engineering. Based in Lumajang, Indonesia.">
+  <meta name="twitter:image" content="https://dwifikriaditya13.github.io/ai-eval-portfolio/assets/og-cover.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#101614" : "#f3f0e8");
+      } catch (err) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dwi Fikri Aditya",
+    "jobTitle": "AI Trainer | LLM Evaluation | Data Annotation | Data Engineering",
+    "email": "mailto:fikkri.adittya@gmail.com",
+    "url": "https://dwifikriaditya13.github.io/ai-eval-portfolio/",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lumajang",
+      "addressRegion": "East Java",
+      "addressCountry": "ID"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/dwifikriaditya",
+      "https://github.com/Dwifikriaditya13"
+    ]
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .mono { font-family: 'IBM Plex Mono', monospace; }
-
-  a { color: var(--accent-bright); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .wrap {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 90px 0 60px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: -40%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(46,196,182,0.14) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 18px;
-  }
-
-  h1 {
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight: 700;
-    line-height: 1.15;
-    max-width: 680px;
-    margin-bottom: 20px;
-  }
-
-  h1 span { color: var(--accent-bright); }
-
-  .hero-sub {
-    color: var(--text-dim);
-    font-size: 17px;
-    max-width: 560px;
-    margin-bottom: 32px;
-  }
-
-  .hero-links { display: flex; gap: 14px; flex-wrap: wrap; }
-
-  .btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    padding: 10px 18px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    transition: border-color .15s, color .15s;
-  }
-  .btn:hover { border-color: var(--accent); color: var(--accent-bright); text-decoration: none; }
-  .btn.primary { background: var(--accent); color: #08201C; border-color: var(--accent); font-weight: 600; }
-  .btn.primary:hover { background: var(--accent-bright); color: #08201C; }
-
-  /* ---------- SECTION SHELL ---------- */
-  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
-  section:last-of-type { border-bottom: none; }
-
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-
-  h2 {
-    font-size: clamp(24px, 3.5vw, 30px);
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-
-  .section-desc {
-    color: var(--text-dim);
-    max-width: 640px;
-    margin-bottom: 36px;
-    font-size: 15.5px;
-  }
-
-  /* ---------- RUBRIC TABLE (signature element) ---------- */
-  .rubric-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .rubric-table th {
-    font-family: 'IBM Plex Mono', monospace;
-    text-align: left;
-    background: var(--bg-raised);
-    color: var(--text-dim);
-    font-weight: 500;
-    padding: 12px 14px;
-    font-size: 12px;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-  }
-  .rubric-table td {
-    padding: 14px;
-    background: var(--bg-raised);
-    border-top: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .rubric-table td.dim { font-weight: 600; color: var(--accent-bright); white-space: nowrap; }
-  .score-cell {
-    border-radius: 6px;
-    padding: 3px 10px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    display: inline-block;
-    cursor: default;
-    transition: transform .12s;
-  }
-  .score-cell:hover { transform: scale(1.05); }
-  .s0 { background: var(--score-0); }
-  .s1 { background: var(--score-1); }
-  .s2 { background: var(--score-2); }
-  .s3 { background: var(--score-3); }
-
-  /* ---------- WORKED EXAMPLE ---------- */
-  .example-box {
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 26px 28px;
-  }
-  .prompt-line {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 20px;
-  }
-  .prompt-line b { color: var(--text); }
-
-  .response-row {
-    display: grid;
-    grid-template-columns: 24px 1fr 80px;
-    gap: 14px;
-    align-items: start;
-    padding: 12px 0;
-    border-top: 1px solid var(--border);
-  }
-  .response-row:first-of-type { border-top: none; }
-  .response-label { font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); font-size: 13px; }
-  .response-text { font-size: 14.5px; }
-  .response-total { font-family: 'IBM Plex Mono', monospace; text-align: right; font-size: 13px; color: var(--text-dim); }
-  .response-row.winner .response-total { color: var(--accent-bright); font-weight: 600; }
-  .response-row.winner .response-label { color: var(--accent-bright); }
-
-  .golden-box {
-    margin-top: 22px;
-    padding: 16px 18px;
-    background: rgba(46,196,182,0.08);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    font-size: 14.5px;
-  }
-  .golden-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    color: var(--accent-bright);
-    margin-bottom: 8px;
-  }
-
-  /* ---------- INTENT CATEGORIES ---------- */
-  .intent-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .intent-card {
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .intent-card h3 {
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: var(--accent-bright);
-  }
-  .intent-card p {
-    font-size: 13.5px;
-    color: var(--text-dim);
-    margin-bottom: 12px;
-  }
-  .intent-card .ex {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--text);
-    background: var(--bg-raised-2);
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-
-  /* ---------- BACKGROUND / FOOTER ---------- */
-  .bg-list { list-style: none; }
-  .bg-list li {
-    padding: 14px 0;
-    border-top: 1px solid var(--border);
-    font-size: 15px;
-    display: flex;
-    gap: 14px;
-  }
-  .bg-list li:first-child { border-top: none; }
-  .bg-list .num { font-family: 'IBM Plex Mono', monospace; color: var(--accent); flex-shrink: 0; }
-
-  footer {
-    padding: 48px 0 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  footer .name { font-weight: 600; }
-  footer .links { display: flex; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
-
-  @media (max-width: 640px) {
-    .intent-grid { grid-template-columns: 1fr; }
-    .response-row { grid-template-columns: 20px 1fr; }
-    .response-total { grid-column: 2; text-align: left; padding-top: 4px; }
-    .rubric-table { display: block; overflow-x: auto; }
-  }
-</style>
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="mark" aria-hidden="true">DA</span>
+      <span class="brand-name">Dwi Fikri Aditya</span>
+    </a>
+    <nav id="site-nav" class="site-nav" data-nav data-open="false" aria-label="Page">
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#case-studies">Case studies</a>
+      <a href="#samples">Samples</a>
+      <a href="#background">Background</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme">
+      <svg class="when-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"></path>
+      </svg>
+      <svg class="when-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+      </svg>
+      <span class="when-light">Dark</span>
+      <span class="when-dark">Light</span>
+    </button>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </header>
 
-<div class="wrap">
+  <main id="content">
+    <div class="wrap" id="top">
+      <section class="hero" aria-labelledby="name">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Lumajang, East Java, Indonesia · Freelance · Remote</p>
+            <h1 id="name">Dwi Fikri Aditya</h1>
+            <p class="title-line">
+              <span class="visually-hidden">AI Trainer | LLM Evaluation | Data Annotation | Data Engineering</span>
+              <span aria-hidden="true">AI Trainer</span>
+              <span class="sep" aria-hidden="true">|</span>
+              <span aria-hidden="true">LLM Evaluation</span>
+              <span class="sep" aria-hidden="true">|</span>
+              <span aria-hidden="true">Data Annotation</span>
+              <span class="sep" aria-hidden="true">|</span>
+              <span aria-hidden="true">Data Engineering</span>
+            </p>
+            <p class="lede">I evaluate language-model output and prepare the human data around it: rubric scores, retrieval review, search relevance, and annotation in Indonesian and English. I am taking that judgment into data engineering — public-data pipelines, personal-data filtering, LoRA fine-tuning, and scores a benchmark can compute on its own.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://www.linkedin.com/in/dwifikriaditya" rel="me noopener noreferrer">LinkedIn</a>
+              <a class="btn" href="mailto:fikkri.adittya@gmail.com">Email</a>
+              <a class="btn" href="https://github.com/Dwifikriaditya13" rel="me noopener noreferrer">GitHub</a>
+            </div>
+          </div>
+          <aside class="now-card" aria-labelledby="now-heading">
+            <h2 id="now-heading">Current roles</h2>
+            <ul class="now-list">
+              <li>
+                <strong>Mercor</strong>
+                <span>AI Image Evaluation Specialist · Oct 2026 – Present</span>
+              </li>
+              <li>
+                <strong>Appen (CrowdGen)</strong>
+                <span>Rubric scoring and response refinement · Jun 2026 – Present</span>
+              </li>
+              <li>
+                <strong>OneForma (Centific)</strong>
+                <span>Indonesian audio transcription · Jul 2026 – Present</span>
+              </li>
+            </ul>
+          </aside>
+        </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="eyebrow">AI Evaluation &amp; Annotation Portfolio</div>
-    <h1>I score AI responses<br>the way <span>rubrics</span> demand — precisely, and on record.</h1>
-    <p class="hero-sub">Dwi Fikri Aditya — AI Trainer &amp; Data Annotation Specialist working across RAG evaluation, rubric-based scoring, and SFT data preparation for LLM training.</p>
-    <div class="hero-links">
-      <a class="btn primary" href="#example">See a worked example</a>
-      <a class="btn" href="https://linkedin.com/in/dwifikriaditya">LinkedIn</a>
-      <a class="btn" href="mailto:fikkri.adittya@gmail.com">Email</a>
+        <div class="stats" id="highlights" aria-label="Figures from the CV">
+          <div class="stat">
+            <strong>95%+</strong>
+            <span>Accuracy standard on rubric scoring</span>
+          </div>
+          <div class="stat">
+            <strong>20–22</strong>
+            <span>Responses scored per 6-hour workday</span>
+          </div>
+          <div class="stat">
+            <strong>40</strong>
+            <span>Average combined intent tasks per 6-hour workday</span>
+          </div>
+          <div class="stat">
+            <strong>30</strong>
+            <span>Personalization scenarios delivered on deadline</span>
+          </div>
+        </div>
+        <p class="stat-note">These figures are the ones stated for specific roles. They are not a combined total. About 1 year 10 months of annotation and AI-training project work, from early 2025 through October 2026, plus freelance micro-tasks from 2022 and independent systems work since 2021.</p>
+      </section>
+
+      <section class="block" id="experience" data-reveal>
+        <p class="section-label">01 — Experience</p>
+        <h2>Where the work happened</h2>
+        <p class="section-intro">Platform names below are the public marketplaces and vendors on my CV. Project code names and client companies are omitted. Task descriptions stay at the level of the method.</p>
+
+        <div class="timeline">
+          <article class="job job-featured" id="mercor">
+            <div class="job-head">
+              <h3 class="org">Mercor</h3>
+              <p class="dates"><time datetime="2026-10">Oct 2026</time> – Present</p>
+            </div>
+            <div class="badges">
+              <span class="badge">Featured</span>
+              <span class="badge">Current</span>
+            </div>
+            <div class="role-grid">
+              <div class="role">
+                <div class="role-head">
+                  <h4>AI Image Evaluation Specialist</h4>
+                  <p class="dates"><time datetime="2026-10">Oct 2026</time> – Present</p>
+                </div>
+                <ul>
+                  <li>Compared pairs of AI-generated images made from the same prompt, chose the stronger image, and wrote an evidence-based justification.</li>
+                  <li>Checked prompt adherence, visual defects, aspect ratio, and the accuracy of text inside the image, including text in more than one language.</li>
+                </ul>
+              </div>
+              <div class="role">
+                <div class="role-head">
+                  <h4>Task Creator — Data Engineering (Contract)</h4>
+                  <p class="dates"><time datetime="2026-10">Oct 2026</time></p>
+                </div>
+                <ul>
+                  <li>Designed an end-to-end benchmark in which an AI agent selects training data for language-model fine-tuning, with explicit constraints and a measurable score.</li>
+                  <li>Built a large multilingual instruction dataset from public sources, with personal-data filtering, deduplication, and length limits.</li>
+                  <li>Built a GPU fine-tuning and automated scoring service in Python, PyTorch, LoRA, and Docker, with a held-out evaluation set I wrote, and revised the task from CI checks and reviewer feedback.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="job" id="appen">
+            <div class="job-head">
+              <h3 class="org">Appen (CrowdGen)</h3>
+              <p class="dates"><time datetime="2025-10">Oct 2025</time> – Present</p>
+            </div>
+            <div class="role">
+              <div class="role-head">
+                <h4>AI Rubric Scoring and Response Refinement Specialist</h4>
+                <p class="dates"><time datetime="2026-06">Jun 2026</time> – Present</p>
+              </div>
+              <ul>
+                <li>Scored about 20–22 model responses per 6-hour workday on a 0–3 rubric, at a 95%+ accuracy standard. Dimensions included relevance, objectivity, and persona consistency, across informational, navigational, and transactional queries.</li>
+                <li>Reviewed retrieval sources for authenticity, timeliness, and authority, and flagged discards such as weak sources, hallucinated content, and media that did not match.</li>
+                <li>Rewrote answers and reviewed golden responses so logic, citations, and media met the standard, and removed critical errors before delivery.</li>
+                <li>Annotated chat intent and the reasoning behind it, about 40 combined tasks per 6-hour day, and split complex queries into retrieval-friendly subqueries.</li>
+                <li>Judged whether demand was actually about fresh or trending topics, using semantic intent, engagement velocity, and cross-platform signals.</li>
+              </ul>
+            </div>
+            <div class="role">
+              <div class="role-head">
+                <h4>Search Relevance and Content Evaluation Rater</h4>
+                <p class="dates"><time datetime="2025-10">Oct 2025</time> – <time datetime="2026-05">May 2026</time></p>
+              </div>
+              <ul>
+                <li>Rated search results against quality guidelines to support ranking quality.</li>
+                <li>Classified images, video, and documents, and did sentiment analysis and light product testing on a high-volume task flow.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="job" id="oneforma">
+            <div class="job-head">
+              <h3 class="org">OneForma (Centific)</h3>
+              <p class="dates"><time datetime="2026-07">Jul 2026</time> – Present</p>
+            </div>
+            <h4>Audio Transcription and Segmentation Annotator</h4>
+            <ul>
+              <li>Transcribed long-form Indonesian podcast audio (30 minutes and longer) verbatim: informal speech, disfluencies, and repetitions stayed in the transcript.</li>
+              <li>Labeled speakers and timed each turn to the millisecond, with a tolerance of about ±500 ms.</li>
+              <li>Tagged fillers, stutters, fragments, and laughter, including the difference between truncated speech and speech that was hard to hear, and segmented secondary-speaker reactions.</li>
+              <li>Noted audio issues such as accent, background noise, and language mixing where they affected training-data quality.</li>
+            </ul>
+          </article>
+
+          <article class="job" id="welocalize">
+            <div class="job-head">
+              <h3 class="org">Welocalize</h3>
+              <p class="dates"><time datetime="2026-07">Jul 2026</time> – <time datetime="2026-08">Aug 2026</time></p>
+            </div>
+            <h4>AI Evaluation Specialist — Personalization and Response Quality</h4>
+            <ul>
+              <li>Compared a personalized assistant answer with a non-personalized answer to the same question, on a 1–5 helpfulness scale, with an evidence-based rationale.</li>
+              <li>Checked personalization claims against the history supplied for the task: saved places, earlier reviews, location patterns, and conversation context.</li>
+              <li>Documented invented personal details, outdated personal data, missed personalization, ignored constraints, and a mechanical tone.</li>
+              <li>Completed 30 complex scenarios on a strict deadline.</li>
+            </ul>
+          </article>
+
+          <article class="job" id="remotasks">
+            <div class="job-head">
+              <h3 class="org">Remotasks (Scale AI)</h3>
+              <p class="dates"><time datetime="2025-01">Jan 2025</time> – <time datetime="2025-09">Sep 2025</time></p>
+            </div>
+            <h4>Data Annotator</h4>
+            <ul>
+              <li>Annotated multi-camera video of robot demonstrations: scene attributes, events, and sub-actions such as pick up, hand off, assemble, insert, approach, and align.</li>
+              <li>Judged execution quality and flagged problems such as a failed grasp or a clip with the wrong timing before submission.</li>
+            </ul>
+          </article>
+
+          <article class="job" id="prodege">
+            <div class="job-head">
+              <h3 class="org">Prodege (Swagbucks / ySense)</h3>
+              <p class="dates"><time datetime="2022">2022</time> – <time datetime="2025">2025</time></p>
+            </div>
+            <h4>Freelance Task Contributor and AI Feedback Provider</h4>
+            <ul>
+              <li>Completed micro-tasks and surveys, and gave structured ratings on digital content, search results, and AI-generated outputs.</li>
+            </ul>
+          </article>
+
+          <article class="job" id="independent">
+            <div class="job-head">
+              <h3 class="org">Independent</h3>
+              <p class="dates"><time datetime="2021">2021</time> – Present</p>
+            </div>
+            <h4>Algorithm and Automation — Rule-Based Systems</h4>
+            <ul>
+              <li>Designed rule-based decision systems with structured logic, data validation, and error handling, tested through analysis of 10+ years of historical data.</li>
+              <li>Built monitoring dashboards and workflow tools to reduce manual steps and make the process more reliable.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="skills" data-reveal>
+        <p class="section-label">02 — Skills</p>
+        <h2>Tools and judgment</h2>
+        <p class="section-intro">Grouped the way they appear on my CV. Platform fluency sits next to the evaluation work, not instead of it.</p>
+        <div class="skill-groups">
+          <article class="skill-group">
+            <h3>AI and evaluation</h3>
+            <ul class="chips">
+              <li>RAG evaluation</li>
+              <li>LLM fine-tuning (SFT)</li>
+              <li>Data annotation and QA</li>
+              <li>Rubric-based scoring</li>
+              <li>AI model evaluation</li>
+              <li>Personalization evaluation</li>
+              <li>Image generation evaluation</li>
+              <li>Hallucination detection</li>
+              <li>Prompt engineering</li>
+              <li>AI tools and automation</li>
+            </ul>
+          </article>
+          <article class="skill-group">
+            <h3>Systems, data, and development</h3>
+            <ul class="chips">
+              <li>Python</li>
+              <li>PyTorch</li>
+              <li>LoRA fine-tuning</li>
+              <li>Docker</li>
+              <li>GitHub Actions CI</li>
+              <li>GPU workloads (H100)</li>
+              <li>Data pipelines</li>
+              <li>Process automation</li>
+              <li>Rule-based systems</li>
+              <li>Git / GitHub</li>
+            </ul>
+          </article>
+          <article class="skill-group">
+            <h3>Platforms</h3>
+            <ul class="chips">
+              <li>Mercor</li>
+              <li>Appen / CrowdGen</li>
+              <li>OneForma / Centific</li>
+              <li>Welocalize</li>
+              <li>Remotasks / Scale AI</li>
+              <li>Labelbox / Alignerr</li>
+            </ul>
+          </article>
+          <article class="skill-group">
+            <h3>Productivity and collaboration</h3>
+            <ul class="chips">
+              <li>Lark</li>
+              <li>Microsoft Excel</li>
+              <li>Google Workspace</li>
+              <li>Remote work</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="case-studies" data-reveal>
+        <p class="section-label">03 — Case studies</p>
+        <h2>The work, at concept level</h2>
+        <p class="section-intro">Each card is a kind of task, not a client write-up. Names of projects, private guidelines, and real task data stay off this page.</p>
+        <div class="cases">
+          <article class="case">
+            <p class="kicker">Mercor · Oct 2026 – Present</p>
+            <h3>AI image evaluation</h3>
+            <p>I compare two AI-generated images made for the same prompt, pick the stronger one, and write a justification from what is actually in the image. The checks are prompt adherence, visual defects such as broken shapes or damaged detail, aspect ratio, and text rendered in the image, including text in more than one language.</p>
+          </article>
+
+          <article class="case case-wide">
+            <p class="kicker">Mercor · Data engineering contract · Oct 2026</p>
+            <h3>Agent benchmark, dataset pipeline, and automated scoring</h3>
+            <p>One contract to build an exam-style task for an AI agent, from the design through a score that does not need a person in the loop.</p>
+            <ol class="steps">
+              <li><strong>Task design</strong> The agent has to choose training data for fine-tuning a language model. Constraints are explicit, and the score is something you can measure.</li>
+              <li><strong>Dataset pipeline</strong> A large multilingual instruction set from public sources, then personal-data filtering, duplicate removal, and a length limit.</li>
+              <li><strong>LoRA fine-tuning and scoring</strong> A GPU service in Python, PyTorch, LoRA, and Docker trains a model and scores it on a held-out question set I wrote.</li>
+              <li><strong>Calibration</strong> I measured a baseline, reference-run scores, and score noise, then revised the task from CI checks and reviewer feedback.</li>
+            </ol>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Appen (CrowdGen)</p>
+            <h3>RAG and SFT evaluation</h3>
+            <p>I judge whether an answer from retrieval-augmented generation, or a candidate for supervised fine-tuning, actually meets the request. Sources are reviewed for authenticity, timeliness, and authority. Cases are discarded when the source is weak, the content is invented, or the media does not match. Complex requests — including ones that need video or earlier turns in a chat — are split into subqueries, and each part is checked against the results. I also mark whether a request is really about a current news topic, using the meaning of the query, how fast engagement is moving, and whether the topic is active in more than one place.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Appen (CrowdGen) · Jun 2026 – Present</p>
+            <h3>Rubric scoring</h3>
+            <p>Model answers are scored 0–3. On this work the dimensions include relevance, objectivity, and persona consistency, for informational, navigational, and transactional queries. The scoring load is about 20–22 responses in a 6-hour day, at a 95%+ accuracy standard. I also rewrite answers so the logic, citations, and media fit, and I review golden responses to remove critical errors before delivery. Intent and the reason for a chat turn are logged as structured fields. The 0–3 template in this repository is a public illustration. It is not that project’s rubric.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Appen (CrowdGen) · Oct 2025 – May 2026</p>
+            <h3>Search relevance</h3>
+            <p>I rate how well search results match a query, against quality guidelines, in support of ranking. The same period included image, video, and document classification, sentiment analysis, and light product testing on a high-volume task flow.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">OneForma (Centific) · Jul 2026 – Present</p>
+            <h3>Indonesian verbatim audio</h3>
+            <p>Long-form Indonesian podcasts, often half an hour and sometimes past an hour, are transcribed as spoken. Informal words, fillers, stutters, and repetitions are not edited into formal sentences. Speakers are labeled and each turn is timed to the millisecond, within about ±500 ms. Tags cover laughter, fragments, truncated speech, and speech that is hard to hear, and secondary speakers are segmented too. Accent, noise, and mixed language are noted when they matter for speech-model data.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Remotasks (Scale AI) · Jan 2025 – Sep 2025</p>
+            <h3>Robotics video annotation</h3>
+            <p>Demonstration video is labeled for scene attributes, events, and sub-actions such as pick up, hand off, assemble, insert, approach, and align. I judge how well the robot carried out the task and flag a failed grasp or a mistimed clip, across more than one camera, before the clip is submitted.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Vision-language-action data</p>
+            <h3>Hand-action video captioning</h3>
+            <p>Separate from the robot-video labeling, I caption training video of human hands at work — for example welding, or fastening and unfastening bolts. The clip is split into time segments. Each segment gets a simple, natural English description of the action, in ordinary wording rather than a stiff generated style.</p>
+          </article>
+
+          <article class="case">
+            <p class="kicker">Welocalize · Jul 2026 – Aug 2026</p>
+            <h3>Personalization evaluation</h3>
+            <p>A personalized assistant answer is compared with a non-personalized answer to the same question, on a 1–5 helpfulness scale, with a written reason. Claims that depend on history — saved places, earlier reviews, location patterns, the conversation — are checked against the history supplied for that task. Issues include invented personal details, stale personal data, a missed chance to personalize, an ignored constraint, and a mechanical tone. The batch was 30 complex scenarios on a strict deadline.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="samples" data-reveal>
+        <p class="section-label">04 — Sample work</p>
+        <h2>Methodology you can open</h2>
+        <p class="section-intro">These files live in the repository. They show the shape of rubric scoring, intent annotation, and a small data-cleaning step. Every example is synthetic. Nothing here is a client guideline or a real task.</p>
+        <div class="sample-links">
+          <a class="sample-link" href="rubrics/response-scoring-rubric-template.md">
+            <span class="kicker">Rubric</span>
+            <strong>Response scoring template</strong>
+            <span>A public 0–3 scale for relevance, factual accuracy, coherence, and tone.</span>
+          </a>
+          <a class="sample-link" href="sample-evaluations/example-response-scoring.md">
+            <span class="kicker">Worked example</span>
+            <strong>Four candidate answers</strong>
+            <span>An invented prompt about storing rice, scored end to end, including a tie.</span>
+          </a>
+          <a class="sample-link" href="annotation-guidelines/query-intent-annotation-guideline-example.md">
+            <span class="kicker">Guideline</span>
+            <strong>Query intent classification</strong>
+            <span>Informational, navigational, and transactional intent, plus how to handle ambiguity.</span>
+          </a>
+          <a class="sample-link" href="samples/rubric-scoring-example.md">
+            <span class="kicker">Synthetic</span>
+            <strong>Grounded scoring example</strong>
+            <span>Three invented answers checked against a fake product card.</span>
+          </a>
+          <a class="sample-link" href="samples/pii_filter_dedup.py">
+            <span class="kicker">Synthetic script</span>
+            <strong>PII filter and dedup</strong>
+            <span>A toy Python step: length limit, email and phone redaction, duplicate removal.</span>
+          </a>
+          <a class="sample-link" href="samples/README.md">
+            <span class="kicker">How to read them</span>
+            <strong>Samples folder</strong>
+            <span>What the extra files are, and how to run the script.</span>
+          </a>
+        </div>
+
+        <div class="panel">
+          <h3>Public rubric, illustrated</h3>
+          <p class="note">Original template for this portfolio. Not an employer rubric. Real projects change the dimensions. The scoring work described above used relevance, objectivity, and persona consistency. Those private level definitions are not copied here.</p>
+          <div class="rubric-grid">
+            <article class="rubric-card">
+              <h3>Relevance</h3>
+              <ol class="scale">
+                <li><b>0</b> Ignores the request</li>
+                <li><b>1</b> Partial match</li>
+                <li><b>2</b> Minor gaps</li>
+                <li><b>3</b> Fully precise</li>
+              </ol>
+            </article>
+            <article class="rubric-card">
+              <h3>Factual accuracy</h3>
+              <ol class="scale">
+                <li><b>0</b> Clear errors</li>
+                <li><b>1</b> One notable error</li>
+                <li><b>2</b> Minor imprecision</li>
+                <li><b>3</b> Verifiable claims</li>
+              </ol>
+            </article>
+            <article class="rubric-card">
+              <h3>Coherence</h3>
+              <ol class="scale">
+                <li><b>0</b> Disorganized</li>
+                <li><b>1</b> Unclear in places</li>
+                <li><b>2</b> Minor awkwardness</li>
+                <li><b>3</b> Clear order</li>
+              </ol>
+            </article>
+            <article class="rubric-card">
+              <h3>Tone and persona</h3>
+              <ol class="scale">
+                <li><b>0</b> Inappropriate</li>
+                <li><b>1</b> Occasional slips</li>
+                <li><b>2</b> Minor lapses</li>
+                <li><b>3</b> Consistent</li>
+              </ol>
+            </article>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Worked example — invented</h3>
+          <p>Prompt: “What’s the best way to store leftover rice safely?” Full score table and rationale: <a href="sample-evaluations/example-response-scoring.md">example-response-scoring.md</a>.</p>
+          <div class="responses">
+            <article class="response">
+              <header>
+                <span class="who">A · tie</span>
+                <span class="tie">12/12</span>
+              </header>
+              <p>Rice should be cooled within 1 hour and refrigerated in a sealed container for up to 3–4 days.</p>
+            </article>
+            <article class="response">
+              <header>
+                <span class="who">B</span>
+                <span class="tie">5/12</span>
+              </header>
+              <p>Just leave it on the counter, rice doesn’t really go bad.</p>
+            </article>
+            <article class="response">
+              <header>
+                <span class="who">C</span>
+                <span class="tie">5/12</span>
+              </header>
+              <p>Store it. Cold place. Container. Good.</p>
+            </article>
+            <article class="response">
+              <header>
+                <span class="who">D · tie</span>
+                <span class="tie">12/12</span>
+              </header>
+              <p>Refrigerate promptly in an airtight container; consume within a few days to avoid bacterial growth.</p>
+            </article>
+          </div>
+          <p class="note" style="margin-top:14px">A and D both score 12. The golden response is written from both: A’s storage window, and D’s reason (bacterial growth). B is down-scored for a food-safety error. C is down-scored because it reads as fragments, not an answer.</p>
+        </div>
+
+        <div class="panel">
+          <h3>Query intent — the categories</h3>
+          <p>A generic framework for the kind of intent labeling used in search and RAG evaluation. The guideline, including ambiguous cases, is in <a href="annotation-guidelines/query-intent-annotation-guideline-example.md">the full note</a>.</p>
+          <div class="intent-grid">
+            <article class="intent-card">
+              <h3>Informational</h3>
+              <p>The user wants to learn or understand something.</p>
+              <span class="ex">how does photosynthesis work</span>
+            </article>
+            <article class="intent-card">
+              <h3>Navigational</h3>
+              <p>The user wants a specific site, page, or product.</p>
+              <span class="ex">facebook login</span>
+            </article>
+            <article class="intent-card">
+              <h3>Transactional</h3>
+              <p>The user wants to complete an action.</p>
+              <span class="ex">buy iphone 15 case</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Toy data-cleaning step</h3>
+          <p>The script <a href="samples/pii_filter_dedup.py">samples/pii_filter_dedup.py</a> redacts an obvious email and a fictional phone number, drops an over-long row, and collapses whitespace duplicates. Ordinary numbers such as “3 to 4” are left alone. Run it with <code>python3 samples/pii_filter_dedup.py</code>.</p>
+          <pre class="pre"><code>ex-004 | Reply to Ada Lovelace at ada.demo@example.com about the kettle warranty.
+ex-004 | Reply to Ada Lovelace at [REDACTED_EMAIL] about the kettle warranty.
+
+ex-005 | Call the fictional help desk at +1 555 010 0199 and summarize the hours.
+ex-005 | Call the fictional help desk at [REDACTED_PHONE] and summarize the hours.
+
+dropped duplicate: ex-002, ex-003
+dropped length:    ex-006</code></pre>
+        </div>
+      </section>
+
+      <section class="block" id="background" data-reveal>
+        <p class="section-label">05 — Background</p>
+        <h2>Certifications, languages, education</h2>
+        <p class="section-intro">Certificates are listed on GitHub. Both were completed in July 2026 through Anthropic Academy.</p>
+
+        <div class="cert-grid" id="certifications">
+          <article class="cert">
+            <p class="kicker">Anthropic Academy · Jul 2026</p>
+            <h3>Claude 101</h3>
+            <p>Certificate of completion.</p>
+            <p><a href="https://github.com/Dwifikriaditya13/certificates">View certificates on GitHub</a></p>
+          </article>
+          <article class="cert">
+            <p class="kicker">Anthropic Academy · Jul 2026</p>
+            <h3>AI Capabilities and Limitations</h3>
+            <p>Certificate of completion.</p>
+            <p><a href="https://github.com/Dwifikriaditya13/certificates">View certificates on GitHub</a></p>
+          </article>
+        </div>
+
+        <h3 id="languages" style="margin-top:28px">Languages</h3>
+        <div class="lang-grid">
+          <article class="lang">
+            <strong>Indonesian</strong>
+            <span>Native</span>
+          </article>
+          <article class="lang">
+            <strong>Javanese</strong>
+            <span>Native / regional</span>
+          </article>
+          <article class="lang">
+            <strong>English</strong>
+            <span>Professional working</span>
+          </article>
+        </div>
+
+        <h3 id="education" style="margin-top:28px">Education</h3>
+        <ul class="edu-list">
+          <li class="edu">
+            <h3>Self-directed study — computer science, AI, and algorithm design</h3>
+            <p class="dates">2021 – Present</p>
+            <p>Ongoing study alongside full-time work: programming, algorithm design, automation, and AI / LLM systems.</p>
+          </li>
+          <li class="edu">
+            <h3>SMK Teknik Audio Video</h3>
+            <p class="dates">Graduated 2012</p>
+            <p>Vocational high school, audio-video engineering.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="contact" data-reveal>
+        <p class="section-label">06 — Contact</p>
+        <h2>Reach me</h2>
+        <p class="section-intro">Freelance, remote, based in Lumajang, East Java, Indonesia. Email is the direct line.</p>
+        <ul class="contact-list">
+          <li>
+            <a href="mailto:fikkri.adittya@gmail.com">
+              <small>Email</small>
+              fikkri.adittya@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dwifikriaditya" rel="me noopener noreferrer">
+              <small>LinkedIn</small>
+              linkedin.com/in/dwifikriaditya
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Dwifikriaditya13" rel="me noopener noreferrer">
+              <small>GitHub</small>
+              github.com/Dwifikriaditya13
+            </a>
+          </li>
+        </ul>
+        <div class="copy-row">
+          <button class="copy-btn" type="button" data-copy-email="fikkri.adittya@gmail.com">Copy email</button>
+          <span class="copy-status" data-copy-status role="status"></span>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <p>Dwi Fikri Aditya · AI Trainer. Examples in this repository are synthetic. Client project names and confidential guidelines are not included.</p>
+        <p><a href="https://github.com/Dwifikriaditya13/ai-eval-portfolio">Source on GitHub</a></p>
+      </footer>
     </div>
-  </div>
-
-  <!-- RUBRIC -->
-  <section id="rubric">
-    <div class="section-label">01 — Scoring framework</div>
-    <h2>Response scoring rubric</h2>
-    <p class="section-desc">A generic template illustrating the rubric-based evaluation approach used in AI/LLM annotation work — every response is scored 0–3 across four dimensions. Hover a score to see it lift.</p>
-
-    <table class="rubric-table">
-      <tr>
-        <th>Dimension</th>
-        <th>0 · Poor</th>
-        <th>1 · Weak</th>
-        <th>2 · Good</th>
-        <th>3 · Excellent</th>
-      </tr>
-      <tr>
-        <td class="dim">Relevance</td>
-        <td><span class="score-cell s0">ignores request</span></td>
-        <td><span class="score-cell s1">partial match</span></td>
-        <td><span class="score-cell s2">minor gaps</span></td>
-        <td><span class="score-cell s3">fully precise</span></td>
-      </tr>
-      <tr>
-        <td class="dim">Factual accuracy</td>
-        <td><span class="score-cell s0">clear errors</span></td>
-        <td><span class="score-cell s1">one error</span></td>
-        <td><span class="score-cell s2">minor imprecision</span></td>
-        <td><span class="score-cell s3">verifiable</span></td>
-      </tr>
-      <tr>
-        <td class="dim">Coherence</td>
-        <td><span class="score-cell s0">disorganized</span></td>
-        <td><span class="score-cell s1">unclear parts</span></td>
-        <td><span class="score-cell s2">minor awkwardness</span></td>
-        <td><span class="score-cell s3">clear order</span></td>
-      </tr>
-      <tr>
-        <td class="dim">Tone &amp; persona</td>
-        <td><span class="score-cell s0">inappropriate</span></td>
-        <td><span class="score-cell s1">occasional slips</span></td>
-        <td><span class="score-cell s2">minor lapses</span></td>
-        <td><span class="score-cell s3">consistent</span></td>
-      </tr>
-    </table>
-  </section>
-
-  <!-- WORKED EXAMPLE -->
-  <section id="example">
-    <div class="section-label">02 — Applied</div>
-    <h2>Worked example: scoring 4 candidates</h2>
-    <p class="section-desc">A self-authored, fictional example showing the rubric above applied in practice — from candidate responses to a selected golden response.</p>
-
-    <div class="example-box">
-      <div class="prompt-line">PROMPT — <b>"What's the best way to store leftover rice safely?"</b></div>
-
-      <div class="response-row">
-        <div class="response-label">A</div>
-        <div class="response-text">Rice should be cooled within 1 hour and refrigerated in a sealed container for up to 3–4 days.</div>
-        <div class="response-total">12/12</div>
-      </div>
-      <div class="response-row">
-        <div class="response-label">B</div>
-        <div class="response-text">Just leave it on the counter, rice doesn't really go bad.</div>
-        <div class="response-total">5/12</div>
-      </div>
-      <div class="response-row">
-        <div class="response-label">C</div>
-        <div class="response-text">Store it. Cold place. Container. Good.</div>
-        <div class="response-total">5/12</div>
-      </div>
-      <div class="response-row winner">
-        <div class="response-label">D ★</div>
-        <div class="response-text">Refrigerate promptly in an airtight container; consume within a few days to avoid bacterial growth.</div>
-        <div class="response-total">12/12</div>
-      </div>
-
-      <div class="golden-box">
-        <div class="golden-label">Selected golden response</div>
-        "Refrigerate leftover rice within an hour of cooking, store it in an airtight container, and consume it within 3–4 days to avoid bacterial growth."
-      </div>
-    </div>
-  </section>
-
-  <!-- INTENT GUIDELINE -->
-  <section id="guideline">
-    <div class="section-label">03 — Annotation guideline</div>
-    <h2>Query intent classification</h2>
-    <p class="section-desc">An example framework for classifying user query intent, the kind used in search / RAG evaluation work.</p>
-
-    <div class="intent-grid">
-      <div class="intent-card">
-        <h3>Informational</h3>
-        <p>User wants to learn or understand something.</p>
-        <span class="ex">"how does photosynthesis work"</span>
-      </div>
-      <div class="intent-card">
-        <h3>Navigational</h3>
-        <p>User wants to reach a specific site or page.</p>
-        <span class="ex">"facebook login"</span>
-      </div>
-      <div class="intent-card">
-        <h3>Transactional</h3>
-        <p>User wants to complete an action.</p>
-        <span class="ex">"buy iphone 15 case"</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- BACKGROUND -->
-  <section id="background">
-    <div class="section-label">04 — Background</div>
-    <h2>How I got here</h2>
-    <ul class="bg-list">
-      <li><span class="num">→</span> 4+ years working across data annotation platforms (Appen, Scale AI, Labelbox, Centific), evaluating LLM outputs for SFT and RAG pipelines.</li>
-      <li><span class="num">→</span> Self-directed study in computer science, algorithm design, and AI/LLM systems since 2021, alongside full-time work.</li>
-      <li><span class="num">→</span> Founder of ProsperaBIZ, a remote-work community focused on project sourcing and skills development.</li>
-      <li><span class="num">→</span> Certified — Anthropic Academy: Claude 101, AI Capabilities and Limitations.</li>
-    </ul>
-  </section>
-
-  <footer>
-    <div>
-      <div class="name">Dwi Fikri Aditya</div>
-      <div class="mono" style="font-size:13px;color:var(--text-dim);">AI Trainer · Data Annotation Specialist</div>
-    </div>
-    <div class="links">
-      <a href="https://github.com/Dwifikriaditya13/ai-eval-portfolio">Source</a>
-      <a href="https://linkedin.com/in/dwifikriaditya">LinkedIn</a>
-      <a href="mailto:fikkri.adittya@gmail.com">Email</a>
-    </div>
-  </footer>
-
-</div>
-
+  </main>
+  <script src="assets/site.js"></script>
 </body>
 </html>

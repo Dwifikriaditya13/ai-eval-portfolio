@@ -1,6 +1,8 @@
 # Query Intent Annotation Guideline — Example
 
-A self-built example guideline for classifying user query intent, illustrating the kind of annotation framework used in search/RAG evaluation work. This is a generic template, not an actual client guideline.
+> **Illustrative example — not client material.** This file is an original template for this public portfolio. It is not an employer guideline, and it does not describe a confidential project.
+
+A self-built example for classifying user query intent. It illustrates the kind of framework used in search and RAG evaluation. The categories below — informational, navigational, and transactional — are the same broad types used when labeling query demand. The decision rules of any real project are not copied here.
 
 ## Task
 
@@ -31,3 +33,20 @@ Some queries could plausibly fall into more than one category. In those cases:
 
 - Consistency across annotators matters more than any single "correct" answer for ambiguous queries — that's why the reasoning field exists.
 - Avoid over-indexing on keyword matching; consider what the user is actually trying to accomplish.
+
+## Worked examples (invented)
+
+These queries are made up. They are here so the fields above are visible in use.
+
+| Query | Intent | Confidence | Reasoning |
+|---|---|---|---|
+| how does photosynthesis work | Informational | High | The user wants an explanation, not a page or a purchase. |
+| order a replacement filter for the Northbeam kettle | Transactional | High | "Order" names a purchase. Northbeam is a fictional product used only in this portfolio. |
+| northbeam kettle | Navigational | Low | A bare product name most often seeks the product page, but it could be research or a purchase. Note both, and flag it if the session gives no further signal. |
+
+## In this portfolio
+
+- [Response scoring rubric](../rubrics/response-scoring-rubric-template.md)
+- [Worked scoring example](../sample-evaluations/example-response-scoring.md)
+- [Synthetic grounded scoring example](../samples/rubric-scoring-example.md)
+- [Portfolio site](../index.html)
