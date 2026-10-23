@@ -1,0 +1,13 @@
+Fonts in this folder are subset Latin files, used under the SIL Open Font License 1.1.
+The license text is in OFL.txt (distributed with Fraunces; the license terms are the same).
+
+Fraunces
+Copyright 2018 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces)
+
+Source Sans 3
+Copyright 2010–2021 Adobe, with Reserved Font Name "Source".
+https://github.com/adobe-fonts/source-sans
+
+IBM Plex Mono
+Copyright 2017 IBM Corp. with Reserved Font Name "Plex".
+https://github.com/IBM/plex

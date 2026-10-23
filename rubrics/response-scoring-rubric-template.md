@@ -1,6 +1,8 @@
 # Response Scoring Rubric — Template Example
 
-A generic rubric template for scoring AI-generated responses on a 0–3 scale across four core dimensions. This is a self-built example illustrating a general rubric-based evaluation approach used in AI/LLM data annotation work — not an actual client rubric.
+> **Illustrative example — not client material.** This file is an original template for this public portfolio. It is not an employer rubric, and it does not copy a confidential guideline.
+
+A generic rubric template for scoring AI-generated responses on a 0–3 scale across four core dimensions. It shows a general rubric-based evaluation approach used in AI/LLM data annotation work. A real project picks its own dimensions. On one scoring project those included relevance, objectivity, and persona consistency. The level definitions for that project are not reproduced here.
 
 ## Scoring dimensions
 
@@ -22,3 +24,11 @@ A generic rubric template for scoring AI-generated responses on a 0–3 scale ac
 
 - Rubric dimensions should be tailored per task type (e.g. open-ended vs. close-ended queries may weight dimensions differently).
 - A short written rationale (1–2 sentences) per dimension improves consistency across annotators working on the same dataset.
+
+## In this portfolio
+
+- [Worked example: leftover rice](../sample-evaluations/example-response-scoring.md)
+- [Synthetic grounded scoring example](../samples/rubric-scoring-example.md)
+- [Query intent guideline](../annotation-guidelines/query-intent-annotation-guideline-example.md)
+- [Toy PII filter and dedup](../samples/pii_filter_dedup.py)
+- [Portfolio site](../index.html)
