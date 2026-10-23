@@ -782,6 +782,8 @@ li + li { margin-top: 0.35rem; }
   font-family: var(--mono);
   font-size: 0.82rem;
   line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .edu-list {
